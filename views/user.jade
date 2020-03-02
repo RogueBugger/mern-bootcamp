@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    h1= title
+    form(name="profile_info", method="post")
+        p
+            | first name: 
+            input(name='firstname', value='', type='text')
+            br
+            |          last name: 
+            input(name='lastname', value='', type='text')
+            br
+            |          address: 
+            input(name='address', value='', type='text')
+            br
+            |          date of birth: 
+            input(name='dateofbirth', value='', type='date')
+            br
+            |          phone:
+            input(name='mobileNo', value='', type='text')
+            br
+        div.actions
+            input(value='Submit', type='submit')

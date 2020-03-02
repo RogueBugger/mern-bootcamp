@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var bookRouter = require('./routes/books');
+var booksRouter =  require('./routes/book');
 
 var app = express();
 
@@ -21,11 +23,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/books', bookRouter);
+app.use('/book', booksRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+
+require("./backend/connections/mongoose");
+
 
 // error handler
 app.use(function(err, req, res, next) {

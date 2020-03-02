@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    h1= title
+    form(name="send_book_details", method="post")
+        p
+            | id: 
+            input(name='id', value='', type='text')
+            br
+            |          book name: 
+            input(name='name', value='', type='text')
+            br
+            |          book author: 
+            input(name='author', value='', type='text')
+            br
+        div.actions
+            input(value='Submit', type='submit')
