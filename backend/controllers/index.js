@@ -1,5 +1,5 @@
 const {User} = require("../schema/index");
-const httpStatus = require("http-status-codes");
+const HttpStatus = require("http-status-codes");
 
 //creating new user
 module.exports.createUser = (req, res) =>{
@@ -17,7 +17,38 @@ module.exports.createUser = (req, res) =>{
             return res
                 .status(httpStatus.NOT_FOUND)
                 .json({message: "user cannot be created"});
-        res.status(httpStatus.OK).json({user});
-    });
+        res.status(HttpStatus.OK).json({user});
+    }); 
 
 };
+
+module.exports.getTodayIsBirthday = (req, res) =>{
+    User.findOne({ _id: "5e5e6948643270085d7e06bb"}).exec((err, user) => {
+        if (err)
+          return res
+            .status(HttpStatus.BAD_REQUEST)
+            .json({ message: "User not defined" });
+        res.status(HttpStatus.OK).json(user.checkBirthday());
+      });
+};
+
+
+module.exports.getByBirthday = (req, res) =>{
+    User.findByBirthdayDate(new Date().toLocaleDateString("en-US"),(err, data) =>{
+        if(err)
+            return res
+                .status(HttpStatus.BAD_REQUEST)
+                .json({message : "Birthday mismatch"});
+        res.status(HttpStatus.OK).json(data);
+    });
+};
+
+module.exports.getFullName = (req, res) =>{
+    User.findById({_id : "5e5e6948643270085d7e06bb"}).exec((err, user) =>{
+        if(err)
+            return res
+                .status(HttpStatus.BAD_REQUEST)
+                .json({message : "mismatch id"});
+        res.status(HttpStatus.OK).json(user.fullname);
+    })
+}
